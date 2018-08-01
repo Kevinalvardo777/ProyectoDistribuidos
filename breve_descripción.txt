@@ -1,0 +1,3 @@
+Proyecto Distribuidos
+Introduction
+El proyecto es un sistema web, con una arquitectura de microservicios y una caché para reducir la latencia de acceso a la base de datos. El sistema web contacta a un microservicio que le retorna los top 10 gifs, para su render en HTML al usuario final. Para evitar saturar la base de datos, se usa una caché en la cual almacenará el resultado del query.
