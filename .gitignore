@@ -1,0 +1,8 @@
+# Carpetas y archivos ignorados
+
+# node
+/node_modules
+*.log
+
+# python
+*.pyc
