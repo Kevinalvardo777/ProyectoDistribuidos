@@ -6,6 +6,21 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <table>
+      <tr>
+        <th>GIF</th>
+        <th>DESCRIPCION</th>
+        <th>NUMERO DE ACCESOS</th>
+      </tr>
+
+      <% for(var i=0; i < gifs.length; i++) { %>
+        <tr>
+          <td><img src=<%= gifs[i].url %> /></td>
+          <td><p><%= gifs[i].description %></p></td>
+          <td><span><%= gifs[i].num_accesses %></span></td>
+        </tr>
+      <% } %>
+
+    </table>
   </body>
 </html>
