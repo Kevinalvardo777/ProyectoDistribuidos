@@ -42,12 +42,12 @@ en el cual será almacenadas en una base de datos.
 
 `` `
 
-npm install express-generator -g
-express --view=ejs
+- npm install express-generator -g
+- express --view=ejs
 `` `
 
 **PARA CORRER LA APLICACIÓN:**
--DEBUG=proyectodistribuidos:* npm start
+- DEBUG=proyectodistribuidos:* npm start
 
         
    
