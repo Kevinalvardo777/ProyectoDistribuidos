@@ -1,6 +1,6 @@
                    
                    
-                    **##PROYECTO DE ARQUITECTURA DE MICROSERVICIOS  CON CACHÉ PARA REDUCIR LATENCIA**
+                    **PROYECTO DE ARQUITECTURA DE MICROSERVICIOS  CON CACHÉ PARA REDUCIR LATENCIA**
 		   
 
 **INTEGRANTES:**
@@ -21,6 +21,7 @@ en el cual será almacenadas en una base de datos.
   
 -Diseñar e implementar un sistema de gestión de bases de datos en MySQL que contenga los registros de las noticias del día.
 -Emplear un sistema distribuido de propósito general para caché basado en memoria.
+
 -Elaborar un sitio Web el cual muestre las noticias del día y las 10 noticias más vistos del día usando conocimientos de caché, bases de datos y servicios Web.
      
 **LIBRERIAS Y MIDDLEWARES POR USAR:**
@@ -40,6 +41,7 @@ en el cual será almacenadas en una base de datos.
 **INSTALACIÓN Y APLICACIÓN DE EXPRESS:**
 
 `` `
+
 npm install express-generator -g
 express --view=ejs
 `` `
