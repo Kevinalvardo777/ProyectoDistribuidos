@@ -11,11 +11,14 @@ var connection = mysql.createConnection({
 // var app = express();
 
 connection.connect(function(err){
- 	if(!err) {
-     		console.log("Database is connected ... \n\n");
-	 } else {
- 		console.log("Error connecting database ... \n\n");
-	}
+ 	if(!err){
+	       connection.query("SELECT * FROM( SELECT num_accesses FROM my_gifs ORDER BY rand() LIMIT 10) T1 ORDER BY num_accesses DESC; ", function (err, result, fields) {	 
+	      
+               console.log("Database is connected ... \n\n");
+	  })}; 
+//else {
+ 	//	console.log("Error connecting database ... \n\n");
+	//};
 });
 connection.end();
 // app.listen(3000, function () {

@@ -63,12 +63,22 @@ var GifsModel = sequelize.define( 'my_gifs',
 
 GifsModel.sync()
 
+// Funcion cambio de gifs
+
+
 
 // Funcion que obtiene los gifs de la DB
 function ObtenerGifs(limit, fn){
   GifsModel.findAll({
-    limit: limit,
-    order: [['num_accesses', 'DESC']]
+      limit: limit ,
+      order: [['num_accesses', 'DESC']]
+//,
+//      attributes: Object.keys(GifsModel.attributes).concat([
+//	   [sequelize.literal('select num_accesses from my_gifs by rand()')]
+//	])
+             
+               // order : 'num_accesses DESC';
+		 // order : [[sequelize.literal('num_accesses'), 'DESC']]
   }).then( gifs => {
       var data = gifs.map((gif) => {
         return gif.get({ plain: false })
@@ -106,3 +116,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+

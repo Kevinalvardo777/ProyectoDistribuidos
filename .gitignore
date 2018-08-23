@@ -3,6 +3,8 @@
 # node
 /node_modules
 *.log
+*.save
+*.save.*
 
 # python
 *.pyc
