@@ -1,5 +1,18 @@
-PROYECTO DE ARQUITECTURA DE MICROSERVICIOS  CON CACHÉ PARA REDUCIR LATENCIA
 
-DESCRIPCIÓN
+			PROYECTO DE ARQUITECTURA DE MICROSERVICIOS  CON CACHÉ PARA REDUCIR LATENCIA
+
+DESCRIPCIÓN:
+
 El presente proyecto se basa en emplear los conocimientos adquiridos durante el transcurso de la materia con la finalidad de implementar un sistema web, con una arquitectura de microservicios y una caché para reducir latencia de acceso a la base de datos.
-El sistema permitirá ver los diez gifs animas más populares de un sistema (top 10, en popularidad), en el cual será almacenadas en una base de datos. El sistema web deberá contactar a un microservicio que retornará los tops diez gifs.
+El sistema permitirá ver los diez gifs animas más populares de un sistema (top 10, en popularidad), en el cual será almacenadas en una base de datos. 
+
+OBJETIVOS ESPECÍFICOS:
+
+	* Diseñar e implementar un sistema de gestión de bases de datos en MySQL que contenga los registros de las noticias del día.
+	* Emplear un sistema distribuido de propósito general para caché basado en memoria.
+	* Elaborar un sitio Web el cual muestre las noticias del día y las 10 noticias más vistos del día usando conocimientos de caché,             bases de datos y servicios Web. 
+
+
+
+
+
