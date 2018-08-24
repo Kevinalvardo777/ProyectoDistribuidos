@@ -6,3 +6,29 @@ body {
 a {
   color: #00B7FF;
 }
+
+body { background-color: #FFA07A;}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    
+   
+}
+
+.imaged{
+   width: 50%;
+   height: 200px;
+    
+}
+
+.principal {
+color: #FFFFFF;
+font-style: italic;
+vertical-align: inherit;
+font-weight: bold;
+text-align: center;
+font-size: 25px;
+}
+
+tr:nth-child(even) {background-color: #FA8A72;}

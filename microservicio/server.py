@@ -1,8 +1,8 @@
 import glob
 import sys
 import MySQLdb
-#import redis # ==> Make sure to install this library using pip install redis
-import memcache
+import redis # ==> Make sure to install this library using pip install redis
+#import memcache
 from datetime import datetime
 import time
 import cPickle
@@ -23,7 +23,7 @@ DB_HOST = 'localhost'
 DB_USER = 'distribuidos_db' 
 DB_PASS = 'creoenDios7777' 
 DB_NAME = 'proyect_distribuidos_db'
-R_SERVER = memcache.Client("localhost")
+R_SERVER = redis.Redis("localhost")
 datos = [DB_HOST, DB_USER, DB_PASS, DB_NAME] 
 conn = MySQLdb.connect(*datos) # Conectar a la base de datos 
 CURSOR = conn.cursor()
@@ -38,12 +38,12 @@ class GifsHandler():
     def obtenerTopGifs(self):
         listGifs = []
         #print("Get gifs")
-        query = "SELECT * FROM(SELECT num_accesses FROM my_gifs ORDER BY rand() LIMIT 10) T1ORDER BY num_accesses DESC; " 
+        query = "SELECT * FROM(SELECT num_accesses FROM my_gifs ORDER BY rand() LIMIT 10) my_gifs ORDER BY num_accesses DESC;" 
         startTime = datetime.now()
         result = self.cache_memcache(query)
         stopTime = datetime.now()
-        print("Tiempo transcurrido: %f"%stopTime-startTime)
-       # console.log("Tiempo transcurrido: %f"%stopTime-startTime) 
+       # print("Tiempo transcurrido: %f"%stopTime-startTime)
+        console.log("Tiempo transcurrido: %f"%stopTime-startTime) 
         print (result)
         for res in result:
 

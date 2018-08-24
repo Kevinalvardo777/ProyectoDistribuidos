@@ -2,22 +2,22 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style2.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
     <table>
       <tr>
-        <th>Nº</th>
-        <th>GIF</th>
-        <th>DESCRIPCION</th>
-        <th>NUMERO DE ACCESOS</th>
+        <th class="principal">Nº</th>
+        <th class="principal">GIF</th>
+        <th class="principal">DESCRIPCION</th>
+        <th class="principal">NUMERO DE ACCESOS</th>
       </tr>
 
       <% for(var i=0; i < gifs.length; i++) { %>
         <tr>
           <td><%= i+1 %>. </td>
-          <td><img src=<%= gifs[i].url %> /></td>
+          <td><img class="imaged" src=<%= gifs[i].url %> /></td>
           <td><p><%= gifs[i].description %></p></td>
           <td><span><%= gifs[i].num_accesses %></span></td>
         </tr>

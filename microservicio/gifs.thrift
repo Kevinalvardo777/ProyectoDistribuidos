@@ -4,7 +4,7 @@ struct Gifs {
   1: i32 id,
   2: string url,
   3: string description,
-  4: i32 num_accesses,
+  4: i32 num_accesses
 }
 
 exception InvalidOperation {
