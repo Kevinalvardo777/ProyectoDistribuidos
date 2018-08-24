@@ -12,7 +12,7 @@ from thrift.protocol import TBinaryProtocol
 
 def main():
     # Make socket
-    transport = TSocket.TSocket('localhost', 22)
+    transport = TSocket.TSocket('localhost', 9090)
 
     # Buffering is critical. Raw sockets are very slow
     transport = TTransport.TBufferedTransport(transport)
@@ -29,7 +29,7 @@ def main():
     client.ping()
     print('ping()')
 
-    print(client.ObtenerTopGifs())
+    print(client.obtenerTopGifs())
 
     # Close!
     transport.close()

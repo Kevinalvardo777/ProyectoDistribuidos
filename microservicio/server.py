@@ -23,7 +23,7 @@ DB_HOST = 'localhost'
 DB_USER = 'distribuidos_db' 
 DB_PASS = 'creoenDios7777' 
 DB_NAME = 'proyect_distribuidos_db'
-R_SERVER = redis.Redis("localhost")
+R_SERVER = memcache.Client("localhost")
 datos = [DB_HOST, DB_USER, DB_PASS, DB_NAME] 
 conn = MySQLdb.connect(*datos) # Conectar a la base de datos 
 CURSOR = conn.cursor()
@@ -35,15 +35,16 @@ class GifsHandler():
     def ping(self):
         print('ping()')
 
-    def ObtenerTopGifs(self):
+    def obtenerTopGifs(self):
         listGifs = []
         #print("Get gifs")
         query = "SELECT * FROM(SELECT num_accesses FROM my_gifs ORDER BY rand() LIMIT 10) T1ORDER BY num_accesses DESC; " 
         startTime = datetime.now()
         result = self.cache_memcache(query)
         stopTime = datetime.now()
-        # print("Tiempo transcurrido: %f"%stopTime-startTime)
-        #print (result)
+        print("Tiempo transcurrido: %f"%stopTime-startTime)
+       # console.log("Tiempo transcurrido: %f"%stopTime-startTime) 
+        print (result)
         for res in result:
 
             listGifs.append(Gifs(int(res[0]), str(res[1]), str(res[2]), int(res[3])))
@@ -64,7 +65,7 @@ class GifsHandler():
 
         # Check if data is in cache.
         if (R_SERVER.get(key)):
-            #print ("This was return from redis")    
+            #print ("This was return from memcached")    
             return cPickle.loads(R_SERVER.get(key))
         else:
             # Do MySQL query   
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     startTime = datetime.now()
     handler = GifsHandler()
     processor = ObtenerGifs.Processor(handler)
-    transport = TSocket.TServerSocket(host='127.0.0.1', port=9090)
+    transport = TSocket.TServerSocket(host='localhost', port=9090)
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
