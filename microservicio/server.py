@@ -7,6 +7,10 @@ from datetime import datetime
 import time
 import cPickle
 import hashlib
+import socket
+import logging
+import inspect
+logging.basicConfig()
 
 sys.path.append('gen-py')
 #sys.path.insert(0, glob.glob('../../lib/py/build/lib*')[0])
@@ -38,20 +42,19 @@ class GifsHandler():
     def obtenerTopGifs(self):
         listGifs = []
         #print("Get gifs")
-        query = "SELECT * FROM(SELECT num_accesses FROM my_gifs ORDER BY rand() LIMIT 10) my_gifs ORDER BY num_accesses DESC;" 
+        query="SELECT * FROM my_gifs ORDER BY num_accesses DESC limit 10;"
         startTime = datetime.now()
-        result = self.cache_memcache(query)
+        result = self.cache_redis(query)
         stopTime = datetime.now()
-       # print("Tiempo transcurrido: %f"%stopTime-startTime)
-        console.log("Tiempo transcurrido: %f"%stopTime-startTime) 
+        # print("Tiempo transcurrido: %f"%stopTime-startTime)
         print (result)
         for res in result:
 
             listGifs.append(Gifs(int(res[0]), str(res[1]), str(res[2]), int(res[3])))
-        
+
         return listGifs
 
-    def cache_memcache(self, sql, TTL = 360):
+    def cache_redis(self, sql, TTL = 360):
         # INPUT 1 : SQL query
         # INPUT 2 : Time To Life
         # OUTPUT  : Array of result
@@ -76,7 +79,7 @@ class GifsHandler():
             R_SERVER.set(key, cPickle.dumps(data) )
             R_SERVER.expire(key, TTL)
 
-            #print ("Set data redis and return the data")
+            #print ("Set data memcached  and return the data")
             return cPickle.loads(R_SERVER.get(key))
 
 

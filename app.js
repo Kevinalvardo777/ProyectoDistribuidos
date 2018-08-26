@@ -5,20 +5,33 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var Sequelize = require('sequelize');
 var bodyParser = require('body-parser');
+var responseTime = require('response-time');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//var indexRouter = require('./routes/index');
+//var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.use(function (req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(responseTime());
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
@@ -54,14 +67,14 @@ var GifsModel = sequelize.define( 'my_gifs',
     url: Sequelize.STRING,
     description: Sequelize.STRING,
     num_accesses: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER(11),
       defaultValue: 0
     }
   },
   { timestamps: false }
 );
 
-GifsModel.sync()
+GifsModel.sync();
 
 
 // Memcached
@@ -132,6 +145,7 @@ function GuardarEnCache(clave, valor, tiempo) {
 // Gargar pagina principal sin usar cache
 app.get('/', function(req, res, next) {
   ObtenerGifs(10, (data) => {
+    var start= new Date();
     console.log('Renderizando página sin cachear');
     return res.render('index', {title: 'Top 10 Gifs Animados', gifs: data});
   });
@@ -140,12 +154,13 @@ app.get('/', function(req, res, next) {
 
 // Cargar pagina usando cache
 app.get('/microservicio', function(err, res){
+ var start= new Date();
   var client = thrift.createClient(Gifs, connection);
   client.obtenerTopGifs(function(err, response){
     console.log('Renderizando página cacheada');
     return res.render('microservicio', {
       title: 'Top 10 Gifs Animados',
-      gifs: data
+      gifs: response
     });
   });
 });
@@ -187,7 +202,7 @@ connection.on('error', function(err) {
   assert(false, err);
 });
 
-function GetGifsMicroservicio(){
+function ObtenerGifsMicroservicio(){
   var client = thrift.createClient(Gifs, connection);
   client.obtenerTopGifs(function(err, response) {
     return response;

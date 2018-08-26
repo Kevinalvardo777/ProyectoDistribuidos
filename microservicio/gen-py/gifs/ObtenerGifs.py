@@ -5,7 +5,8 @@
 #
 #  options string: py
 #
-
+import logging
+logging.basicConfig()
 from thrift.Thrift import TType, TMessageType, TException, TApplicationException
 from ttypes import *
 from thrift.Thrift import TProcessor

@@ -29,7 +29,7 @@ def main():
     client.ping()
     print('ping()')
 
-    #print(client.obtenerTopGifs())
+    print(client.obtenerTopGifs())
 
     # Close!
     transport.close()
