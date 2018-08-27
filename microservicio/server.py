@@ -1,8 +1,7 @@
 import glob
 import sys
 import MySQLdb
-import redis # ==> Make sure to install this library using pip install redis
-#import memcache
+import redis
 from datetime import datetime
 import time
 import cPickle
@@ -23,9 +22,9 @@ from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 
-DB_HOST = 'localhost' 
-DB_USER = 'distribuidos_db' 
-DB_PASS = 'creoenDios7777' 
+DB_HOST = 'localhost'
+DB_USER = 'distribuidos_db'
+DB_PASS = 'creoenDios7777'
 DB_NAME = 'proyect_distribuidos_db'
 R_SERVER = redis.Redis("localhost")
 datos = [DB_HOST, DB_USER, DB_PASS, DB_NAME] 
@@ -42,7 +41,7 @@ class GifsHandler():
     def obtenerTopGifs(self):
         listGifs = []
         #print("Get gifs")
-        query="SELECT * FROM my_gifs ORDER BY num_accesses DESC limit 10;"
+        query = "SELECT * FROM my_gifs order by num_accesses DESC limit 10;"
         startTime = datetime.now()
         result = self.cache_redis(query)
         stopTime = datetime.now()
@@ -54,32 +53,32 @@ class GifsHandler():
 
         return listGifs
 
-    def cache_redis(self, sql, TTL = 360):
+    def cache_redis(self, sql, TTL = 300):
         # INPUT 1 : SQL query
         # INPUT 2 : Time To Life
         # OUTPUT  : Array of result
-        
+
         # Create a hash key
         tiempo = time.strftime("%H:%M")
         hash = hashlib.sha224(tiempo).hexdigest()
-        
+
         key = "tiempo_cache:" + hash
         #print ("Created Key\t : %s" % key)
 
         # Check if data is in cache.
         if (R_SERVER.get(key)):
-            #print ("This was return from memcached")    
+            #print ("This was return from memcached")
             return cPickle.loads(R_SERVER.get(key))
         else:
-            # Do MySQL query   
+            # Do MySQL query
             CURSOR.execute(sql)
             data = CURSOR.fetchall()
-            
+
             # Put data into cache for 1 hour
             R_SERVER.set(key, cPickle.dumps(data) )
             R_SERVER.expire(key, TTL)
 
-            #print ("Set data memcached  and return the data")
+            #print ("Set data redis  and return the data")
             return cPickle.loads(R_SERVER.get(key))
 
 
