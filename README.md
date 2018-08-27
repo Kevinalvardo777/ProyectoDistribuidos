@@ -26,7 +26,7 @@ en el cual será almacenadas en una base de datos.
      
 **LIBRERIAS Y MIDDLEWARES POR USAR:**
   
--**memcache:** ejecuta y particiona los datos en varios fragmentos, almacenados en la cache. Es un sistema distribuido en general para caché basado en memoria.
+-**redis:** ejecuta y particiona los datos en varios fragmentos, almacenados en la cache. Es un sistema distribuido en general para caché basado en memoria.
 
 -**Apache thrift:** framework que se utiliza por la diversidad de recursos que existen en internet para solucionar problemas de dicho proyecto.
               
@@ -38,18 +38,11 @@ en el cual será almacenadas en una base de datos.
 
 -MySQL
 
-**INSTALACIÓN Y APLICACIÓN DE EXPRESS:**
+**Despligue**
 
-`` `
-
-- npm install express-generator -g
-- express --view=ejs
-`` `
-
-**PARA CORRER LA APLICACIÓN:**
-- DEBUG=proyectodistribuidos:* npm start
-
-        
+Para el desplique de la aplicación web en la nube se utilizó una cuenta gratuita de Azure.
+Puede verificar el proyecto accediendo a http://40.87.82.1 que hace consultas sólo a la base de datos.
+Mientras que accediendo a http://40.87.82.1/microservicio la app hace colsultas primero a la caché, sino se encuentra va a la base de datos, guarda la búsqueda en la caché y presenta el resultado.         
    
 
          
